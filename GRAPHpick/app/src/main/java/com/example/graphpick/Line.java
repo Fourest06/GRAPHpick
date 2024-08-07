@@ -1,0 +1,515 @@
+package com.example.graphpick;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.FileProvider;
+
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
+import com.github.mikephil.charting.formatter.DefaultValueFormatter;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Locale;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.components.XAxis;
+import android.graphics.Color;
+import android.widget.Toast;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+public class Line extends AppCompatActivity {
+
+    BottomNavigationView nav;
+    private static final int GALLERY_REQUEST_CODE = 4;
+    private LineChart lineChart;
+    ArrayList<String> labels = new ArrayList<>();
+    ArrayList<Entry> entries1 = new ArrayList<>();
+    private View darkOverlay;
+    private static final int F1_REQUEST_CODE = 1;
+    private static final int F2_REQUEST_CODE = 2;
+    private static final int F4_REQUEST_CODE = 5;
+    private ImageButton f1Button, f2Button, f3Button, f4Button;
+    private ArrayList<String> dataF = new ArrayList<>();
+    private ArrayList<String> dataS = new ArrayList<>();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
+        setContentView(R.layout.activity_line);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("1", "Notification", NotificationManager.IMPORTANCE_HIGH);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+        ImageButton arrowLeftButton = findViewById(R.id.backButton);
+        Intent intent = getIntent();
+        dataF = intent.getStringArrayListExtra("dataF");
+        dataS = intent.getStringArrayListExtra("dataS");
+        Log.d("ExtractedDataF", Arrays.toString(dataF.toArray()));
+        Log.d("ExtractedDataS", Arrays.toString(dataS.toArray()));
+
+        f1Button = findViewById(R.id.f1Button);
+        f1Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addDarkOverlay();
+                f1Button.setImageResource(R.drawable.fa1);
+                Intent intent = new Intent(Line.this, Line_Elements.class);
+                startActivityForResult(intent, F1_REQUEST_CODE);
+            }
+        });
+
+        f2Button = findViewById(R.id.f2Button);
+        f2Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addDarkOverlay();
+                f2Button.setImageResource(R.drawable.fa2);
+                Intent intent = new Intent(Line.this, Line_Color.class);
+                startActivityForResult(intent, F2_REQUEST_CODE);
+            }
+        });
+
+        f3Button = findViewById(R.id.f3Button);
+        f3Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                exportChart();
+            }
+        });
+
+        f4Button = findViewById(R.id.f4Button);
+        f4Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addDarkOverlay();
+                f4Button.setImageResource(R.drawable.fa4);
+                Intent intent = new Intent(Line.this, Edit.class);
+                intent.putStringArrayListExtra("dataF", dataF);
+                intent.putStringArrayListExtra("dataS", dataS);
+                startActivityForResult(intent, F4_REQUEST_CODE);
+            }
+        });
+
+        arrowLeftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        for (int i = 0; i < dataF.size(); i++) {
+            if (isFloat(dataS.get(i))) {
+                float valueS = Float.parseFloat(dataS.get(i));
+                entries1.add(new BarEntry(i, valueS, dataF.get(i)));
+                labels.add(dataF.get(i));
+            } else {
+                Log.e("DataConversion", "Error converting value at index " + i);
+            }
+        }
+
+        LineDataSet dataSet2 = new LineDataSet(entries1, null);
+        dataSet2.setColor(Color.parseColor("#FF8A00"));
+        dataSet2.setDrawCircles(false);
+        dataSet2.setDrawValues(false);
+        dataSet2.setLineWidth(3f);
+
+        lineChart = findViewById(R.id.lineChart);
+        lineChart.getLegend().setEnabled(false);
+        lineChart.getDescription().setEnabled(false);
+
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1f);
+        xAxis.setDrawGridLines(false);
+        xAxis.setDrawAxisLine(false);
+
+        YAxis yAxisLeft = lineChart.getAxisLeft();
+        YAxis yAxisRight = lineChart.getAxisRight();
+        yAxisLeft.setDrawGridLines(true);
+        yAxisLeft.setAxisMinimum(0f);
+        yAxisRight.setEnabled(false);
+        yAxisLeft.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+        yAxisLeft.setXOffset(10f);
+
+        lineChart.animateX(500);
+        LineData lineData = new LineData(dataSet2);
+        lineChart.setData(lineData);
+        lineChart.invalidate();
+
+        nav = findViewById(R.id.nav);
+        nav.getMenu().setGroupCheckable(0, true, true);
+        nav.getMenu().setGroupCheckable(0, false, true);
+        nav.setSelectedItemId(R.id.dummy);
+
+        nav.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.Upload:
+                        openGallery();
+                        return true;
+                    case R.id.Settings:
+                        startActivity(new Intent(getApplicationContext(), Instruction.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.About:
+                        startActivity(new Intent(getApplicationContext(), About.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.Camera:
+                        startActivity(new Intent(getApplicationContext(), Cam.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void exportChart() {
+        try {
+            View rootView = getWindow().getDecorView().getRootView();
+            Bitmap fullScreenBitmap = Bitmap.createBitmap(rootView.getWidth(), rootView.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(fullScreenBitmap);
+            rootView.draw(canvas);
+
+            int centerX = fullScreenBitmap.getWidth() / 2;
+            int startY = calculateStartY();
+            int endY = calculateEndY();
+            int captureWidth = 1500;
+            int captureHeight = fullScreenBitmap.getHeight() - startY - endY;
+            int cropLeft = Math.max(centerX - (captureWidth / 2), 0);
+            int cropTop = startY;
+            int cropRight = Math.min(centerX + (captureWidth / 2), fullScreenBitmap.getWidth());
+            int cropBottom = Math.min(cropTop + captureHeight, fullScreenBitmap.getHeight() - endY);
+
+            Bitmap croppedBitmap = Bitmap.createBitmap(fullScreenBitmap, cropLeft, cropTop, cropRight - cropLeft, cropBottom - cropTop);
+            saveChartImage(croppedBitmap);
+
+            Toast.makeText(this, "Image captured successfully", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Log.e("ExportChart", "Error capturing image: " + e.getMessage());
+            Toast.makeText(this, "Error capturing image", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private int calculateStartY() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        int screenHeight = displayMetrics.heightPixels;
+
+        if (screenHeight >= 1920) {
+            return 680;
+        }
+        else {
+            return 400;
+        }
+    }
+
+    private int calculateEndY() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        int screenHeight = displayMetrics.heightPixels;
+
+        if (screenHeight >= 1920) {
+            return 550;
+        }
+        else {
+            return 350;
+        }
+    }
+
+    private void saveChartImage(Bitmap chartBitmap) throws IOException {
+        try {
+            File picturesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+            String fileName = "line_chart_" + timeStamp + ".jpeg";
+
+            File imageFile = new File(picturesDir, fileName);
+
+            FileOutputStream fos = new FileOutputStream(imageFile);
+            chartBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.close();
+
+            Uri contentUri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", imageFile);
+
+            MediaScannerConnection.scanFile(
+                    this,
+                    new String[]{imageFile.getAbsolutePath()},
+                    null,
+                    (path, uri) -> {
+                        Log.i("ExportChart", "Scanned " + path + ":");
+                        Log.i("ExportChart", "-> uri=" + uri);
+                    });
+
+            Intent galleryIntent = new Intent(Intent.ACTION_VIEW);
+            galleryIntent.setDataAndType(contentUri, "image/jpeg");
+            galleryIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
+                    galleryIntent, PendingIntent.FLAG_IMMUTABLE);
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
+                    .setSmallIcon(R.drawable.flogo1)
+                    .setStyle(new NotificationCompat.BigTextStyle()
+                            .setBigContentTitle("Line Graph")
+                            .bigText("Image captured successfully"))
+                    .setColor(Color.parseColor("#2C9CA6"))
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.notify(1,builder.build());
+
+        } catch (Exception e) {
+            Log.e("ExportChart", "Error capturing image: " + e.getMessage());
+        }
+    }
+
+    private void addDarkOverlay() {
+        if (darkOverlay == null) {
+            darkOverlay = new View(this);
+            darkOverlay.setBackgroundColor(Color.parseColor("#10FFFFFF"));
+            darkOverlay.setLayoutParams(new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT));
+
+            getWindow().addContentView(darkOverlay, new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT));
+
+            darkOverlay.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    removeDarkOverlay();
+                    return true;
+                }
+            });
+        }
+    }
+
+    private void removeDarkOverlay() {
+        if (darkOverlay != null) {
+            ((ViewGroup) darkOverlay.getParent()).removeView(darkOverlay);
+            darkOverlay = null;
+        }
+    }
+
+    private void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        if (galleryIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == F1_REQUEST_CODE) {
+            if (resultCode == RESULT_CANCELED) {
+                removeDarkOverlay();
+                f1Button.setImageResource(R.drawable.f1);
+            }
+        }
+        if (requestCode == F2_REQUEST_CODE) {
+            if (resultCode == RESULT_CANCELED) {
+                removeDarkOverlay();
+                f2Button.setImageResource(R.drawable.f2);
+            }
+        }
+        if (requestCode == F4_REQUEST_CODE) {
+            if (resultCode == RESULT_CANCELED) {
+                removeDarkOverlay();
+                f4Button.setImageResource(R.drawable.f4);
+            }
+        }
+        if (requestCode == F1_REQUEST_CODE && resultCode == RESULT_OK) {
+            boolean checkbox1State = data.getBooleanExtra("checkbox1State", false);
+            boolean checkbox2State = data.getBooleanExtra("checkbox2State", false);
+            boolean checkbox3State = data.getBooleanExtra("checkbox3State", false);
+
+            EditText chartTitleEditText = findViewById(R.id.chartTitleEditText);
+            EditText axisTitle1 = findViewById(R.id.firstEditText);
+            EditText axisTitle2 = findViewById(R.id.secondEditText);
+            chartTitleEditText.setText("");
+            axisTitle1.setText("");
+            axisTitle2.setText("");
+
+            if (checkbox1State) {
+                axisTitle1.setVisibility(View.VISIBLE);
+                axisTitle2.setVisibility(View.VISIBLE);
+            } else {
+                axisTitle1.setVisibility(View.INVISIBLE);
+                axisTitle2.setVisibility(View.INVISIBLE);
+            }
+            if (checkbox2State) {
+                chartTitleEditText.setVisibility(View.VISIBLE);
+            } else {
+                chartTitleEditText.setVisibility(View.INVISIBLE);
+            }
+            if (checkbox3State) {
+                updateLineChart1(true);
+            } else {
+                updateLineChart1(false);
+            }
+            removeDarkOverlay();
+            f1Button.setImageResource(R.drawable.f1);
+        }
+        if (requestCode == F2_REQUEST_CODE && resultCode == RESULT_OK) {
+            String selectedColor = data.getStringExtra("selectedColors");
+            updateLineChart(selectedColor);
+            removeDarkOverlay();
+            f2Button.setImageResource(R.drawable.f2);
+        }
+        if (requestCode == F4_REQUEST_CODE && resultCode == RESULT_OK) {
+            ArrayList<String> updatedDataF = data.getStringArrayListExtra("updatedDataF");
+            ArrayList<String> updatedDataS = data.getStringArrayListExtra("updatedDataS");
+            removeDarkOverlay();
+            f4Button.setImageResource(R.drawable.f4);
+            dataF = updatedDataF;
+            dataS = updatedDataS;
+            updateLineChartWithData(updatedDataF, updatedDataS);
+        }
+        if (requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK) {
+            Intent galleryIntent = new Intent(this, Gallery.class);
+            galleryIntent.setData(data.getData());
+            startActivity(galleryIntent);
+        }
+    }
+
+    private void updateLineChartWithData(ArrayList<String> updatedDataF, ArrayList<String> updatedDataS) {
+        entries1.clear();
+        labels.clear();
+
+        for (int i = 0; i < updatedDataF.size(); i++) {
+            if (isFloat(updatedDataS.get(i))) {
+                float valueS = Float.parseFloat(updatedDataS.get(i));
+                entries1.add(new Entry(i, valueS));
+                labels.add(updatedDataF.get(i));
+            } else {
+                Log.e("DataConversion", "Error converting value at index " + i);
+            }
+        }
+
+        LineDataSet dataSet = new LineDataSet(entries1, null);
+        dataSet.setColor(Color.parseColor("#FF8A00"));
+        dataSet.setDrawValues(false);
+        dataSet.setLineWidth(3f);
+        dataSet.setDrawCircles(false);
+        LineData lineData = new LineData(dataSet);
+
+        lineChart.setData(lineData);
+        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
+        lineChart.animateX(500);
+        lineChart.invalidate();
+    }
+
+    private void updateLineChart(String selectedColor) {
+        lineChart = findViewById(R.id.lineChart);
+        LineData lineData = lineChart.getData();
+        LineDataSet dataSet = (LineDataSet) lineData.getDataSetByIndex(0);
+
+        dataSet.setColors(Color.parseColor(selectedColor));
+        dataSet.setLineWidth(3f);
+
+        lineChart.invalidate();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
+    private boolean isFloat(String str) {
+        try {
+            Float.parseFloat(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private void updateLineChart1(boolean drawValues) {
+        lineChart = findViewById(R.id.lineChart);
+        LineData lineData = lineChart.getData();
+        LineDataSet dataSet = (LineDataSet) lineData.getDataSetByIndex(0);
+
+        dataSet.setValueTextSize(12f);
+        dataSet.setDrawValues(drawValues);
+
+        if (drawValues) {
+            dataSet.setValueFormatter(new ValueFormatter() {
+                @Override
+                public String getFormattedValue(float value) {
+                    if (value == (int) value) {
+                        return String.valueOf((int) value);
+                    } else {
+                        return String.valueOf(value);
+                    }
+                }
+            });
+        } else {
+            dataSet.setValueFormatter(null);
+        }
+
+        lineChart.invalidate();
+    }
+
+}
+

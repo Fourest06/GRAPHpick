@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="250dp"
+    android:layout_height="410dp"
+    android:layout_gravity="center"
+    tools:context=".Bar_Color"
+    android:background="#FFFFFF">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#2C9CA6">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:src="@drawable/fback"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/backButton"
+            android:fontFamily="@font/montregular"
+            android:layout_marginStart="8dp"
+            android:text="Color Palette"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/chooseColorsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="65dp"
+        android:layout_marginStart="16dp"
+        android:text="Choose colors"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:fontFamily="@font/montmedium"
+        />
+
+    <ImageButton
+        android:id="@+id/myImageButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/fcolor1"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"
+        />
+
+    <ImageButton
+        android:id="@+id/myImageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/fcolor2"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_below="@id/myImageButton1"
+        android:layout_marginTop="20dp"
+        />
+
+    <ImageButton
+        android:id="@+id/myImageButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/fcolor3"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_below="@id/myImageButton2"
+        android:layout_marginTop="20dp"
+        />
+
+    <ImageButton
+        android:id="@+id/myImageButton4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/fcolor4"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_below="@id/myImageButton3"
+        android:layout_marginTop="20dp"
+        />
+
+    <ImageButton
+        android:id="@+id/myImageButton5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/fcolor5"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_below="@id/myImageButton4"
+        android:layout_marginTop="20dp"
+        />
+
+    <ImageButton
+        android:id="@+id/myImageButton6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/fcolor6"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_below="@id/myImageButton5"
+        android:layout_marginTop="20dp"
+        />
+
+</RelativeLayout>

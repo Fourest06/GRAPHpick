@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="370dp"
+    android:layout_gravity="center"
+    tools:context=".Edit"
+    android:background="#FFFFFF">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#2C9CA6">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:src="@drawable/fback"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/backButton"
+            android:fontFamily="@font/montregular"
+            android:layout_marginStart="8dp"
+            android:text="Edit Data"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/xAxisLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:text="X-Axis"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:fontFamily="@font/montmedium"/>
+
+    <LinearLayout
+        android:id="@+id/xAxisColumn1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/xAxisLabel"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp">
+
+        <EditText
+            android:id="@+id/xAxisData1"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:hint="Data 1"
+            android:maxLines="1"
+            android:textSize="15sp"
+            android:fontFamily="@font/montregular"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/xAxisData2"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:hint="Data 2"
+            android:maxLines="1"
+            android:textSize="15sp"
+            android:fontFamily="@font/montregular"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/xAxisData3"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:hint="Data 3"
+            android:maxLines="1"
+            android:textSize="15sp"
+            android:fontFamily="@font/montregular"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/xAxisData4"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:hint="Data 4"
+            android:maxLines="1"
+            android:textSize="15sp"
+            android:fontFamily="@font/montregular"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/xAxisData5"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:hint="Data 5"
+            android:maxLines="1"
+            android:textSize="15sp"
+            android:fontFamily="@font/montregular"
+            android:inputType="text"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/yAxisLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/xAxisLabel"
+        android:layout_marginStart="90dp"
+        android:text="Y-Axis"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:fontFamily="@font/montmedium"/>
+
+    <LinearLayout
+        android:id="@+id/yAxisColumn1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/yAxisLabel"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="160dp">
+
+        <EditText
+            android:id="@+id/yAxisData1"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:hint="Data 1"
+            android:maxLines="1"
+            android:textSize="15sp"
+            android:fontFamily="@font/montregular"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/yAxisData2"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:hint="Data 2"
+            android:maxLines="1"
+            android:textSize="15sp"
+            android:fontFamily="@font/montregular"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/yAxisData3"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:hint="Data 3"
+            android:maxLines="1"
+            android:textSize="15sp"
+            android:fontFamily="@font/montregular"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/yAxisData4"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:hint="Data 4"
+            android:maxLines="1"
+            android:textSize="15sp"
+            android:fontFamily="@font/montregular"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/yAxisData5"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:hint="Data 5"
+            android:maxLines="1"
+            android:textSize="15sp"
+            android:fontFamily="@font/montregular"
+            android:inputType="text"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/circleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:paddingHorizontal="40dp"
+        android:background="@drawable/btn_cam"
+        android:drawableStart="@drawable/check"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"/>
+</RelativeLayout>

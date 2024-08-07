@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="420dp"
+    android:layout_gravity="center"
+    tools:context=".Bar_Elements"
+    android:background="#FFFFFF">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#2C9CA6">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:src="@drawable/fback"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/backButton"
+            android:fontFamily="@font/montregular"
+            android:layout_marginStart="8dp"
+            android:text="Save As"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <Button
+        android:id="@+id/fimage1"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="16dp"
+        android:text="   Word File"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:fontFamily="@font/montlight"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:drawableStart="@drawable/f32"
+        android:textAllCaps="false"
+        android:gravity="left|center_vertical"/>
+
+    <Button
+        android:id="@+id/fimage2"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="16dp"
+        android:text="   PowerPoint"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:fontFamily="@font/montlight"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="170dp"
+        android:drawableStart="@drawable/f33"
+        android:textAllCaps="false"
+        android:gravity="left|center_vertical"/>
+
+    <Button
+        android:id="@+id/fimage3"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="16dp"
+        android:text="   PDF"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:fontFamily="@font/montlight"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="250dp"
+        android:drawableStart="@drawable/f34"
+        android:textAllCaps="false"
+        android:gravity="left|center_vertical"/>
+
+    <Button
+        android:id="@+id/fimage4"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="16dp"
+        android:text="  JPEG"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:fontFamily="@font/montlight"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="330dp"
+        android:drawableStart="@drawable/f35"
+        android:textAllCaps="false"
+        android:gravity="left|center_vertical"/>
+
+</RelativeLayout>

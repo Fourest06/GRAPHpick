@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="250dp"
+    android:layout_height="290dp"
+    android:layout_gravity="center"
+    tools:context=".Line_Elements"
+    android:background="#FFFFFF">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#2C9CA6">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:src="@drawable/fback"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/backButton"
+            android:fontFamily="@font/montregular"
+            android:layout_marginStart="8dp"
+            android:text="Chart Elements"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <CheckBox
+        android:id="@+id/f1check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Axis Title"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        android:fontFamily="@font/montlight"
+        android:layout_centerHorizontal="true"
+        android:buttonTint="#1F818A"
+        android:layout_marginTop="70dp"/>
+
+    <CheckBox
+        android:id="@+id/f2check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/f1check"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="57dp"
+        android:buttonTint="#1F818A"
+        android:fontFamily="@font/montlight"
+        android:text="Chart Title"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:layout_marginTop="20dp" />
+
+    <CheckBox
+        android:id="@+id/f3check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/f2check"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="57dp"
+        android:buttonTint="#1F818A"
+        android:fontFamily="@font/montlight"
+        android:text="Data Label"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:layout_marginTop="20dp" />
+
+    <Button
+        android:id="@+id/circleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:paddingHorizontal="40dp"
+        android:background="@drawable/btn_cam"
+        android:drawableStart="@drawable/check"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        />
+
+</RelativeLayout>

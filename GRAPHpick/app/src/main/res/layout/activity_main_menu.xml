@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".MainMenu">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:scaleType="fitXY"
+                android:layout_marginTop="25sp"
+                android:src="@drawable/flogo1"
+                android:layout_gravity="center_horizontal"
+                />
+
+            <Button
+                android:id="@+id/camera"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50sp"
+                android:background="@drawable/btn_cam"
+                android:drawableStart="@drawable/fcam"
+                android:fontFamily="@font/montregular"
+                android:paddingHorizontal="50sp"
+                android:text="  Take a Photo"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                />
+
+            <Button
+                android:id="@+id/upload"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30sp"
+                android:paddingHorizontal="50sp"
+                android:text="  Upload Picture"
+                android:textSize="20sp"
+                android:fontFamily="@font/montregular"
+                android:textAllCaps="false"
+                android:background="@drawable/btn_upload"
+                android:drawableStart="@drawable/fupload"
+                android:textColor="#FFFFFF"
+                android:gravity="center_vertical"
+                />
+
+            <Button
+                android:id="@+id/settings"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30sp"
+                android:paddingHorizontal="50sp"
+                android:text="  How To Use"
+                android:textSize="20sp"
+                android:fontFamily="@font/montregular"
+                android:textAllCaps="false"
+                android:background="@drawable/btn_setting"
+                android:drawableStart="@drawable/finstruction"
+                android:gravity="center_vertical"
+                android:textColor="#FFFFFF"
+                />
+
+            <Button
+                android:id="@+id/about"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30sp"
+                android:paddingHorizontal="50sp"
+                android:text="  About"
+                android:textSize="20sp"
+                android:fontFamily="@font/montregular"
+                android:textAllCaps="false"
+                android:background="@drawable/btn_about"
+                android:drawableStart="@drawable/fabout"
+                android:gravity="center_vertical"
+                android:textColor="#FFFFFF"
+                />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textAlignment="center"
+                android:fontFamily="@font/montregular"
+                android:text="Version 1.0.0"
+                android:layout_marginTop="150sp"
+                android:textColor="#0D5968"
+                android:layout_gravity="center_horizontal"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

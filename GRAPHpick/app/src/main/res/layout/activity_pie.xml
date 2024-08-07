@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Pie">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#2C9CA6">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:src="@drawable/fback"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/backButton"
+            android:fontFamily="@font/montregular"
+            android:layout_marginStart="8dp"
+            android:text="Pie Graph"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/nav">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+
+                    <ImageButton
+                        android:id="@+id/f4Button"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:background="@drawable/transparent_button"
+                        android:src="@drawable/f4"
+                        android:layout_marginTop="30dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edit Data"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/montmedium"
+                        android:textColor="#1F818A"
+                        android:gravity="center"
+                        android:layout_marginTop="-15dp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_marginStart="50dp">
+
+                    <ImageButton
+                        android:id="@+id/f1Button"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/transparent_button"
+                        android:src="@drawable/f1"
+                        android:layout_marginTop="30dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chart\n Element"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/montmedium"
+                        android:textColor="#1F818A"
+                        android:gravity="center"
+                        android:layout_marginTop="-15dp"
+                        android:layout_marginStart="10dp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_marginStart="0dp">
+
+                    <ImageButton
+                        android:id="@+id/f2Button"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_marginStart="0dp"
+                        android:background="@drawable/transparent_button"
+                        android:src="@drawable/f2"
+                        android:layout_marginTop="30dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Color\n Palette"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/montmedium"
+                        android:textColor="#1F818A"
+                        android:gravity="center"
+                        android:layout_marginTop="-15dp"
+                        android:layout_marginStart="0dp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_marginStart="0dp">
+
+                    <ImageButton
+                        android:id="@+id/f3Button"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_marginStart="-10dp"
+                        android:background="@drawable/transparent_button"
+                        android:src="@drawable/f3"
+                        android:layout_marginTop="30dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Save"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/montmedium"
+                        android:textColor="#1F818A"
+                        android:gravity="center"
+                        android:layout_marginTop="-15dp"
+                        android:layout_marginStart="-10dp"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/chartTitleEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:hint="Chart Title"
+                android:fontFamily="@font/montbold"
+                android:layout_gravity="center_horizontal"
+                android:visibility="invisible"
+                android:gravity="center"
+                android:background="@android:color/transparent"
+                android:textSize="20sp"
+                />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChart"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bar"
+        android:background="@drawable/nav"
+        android:layout_height="wrap_content"
+        app:itemIconTint="#1F818A"
+        app:itemTextColor="#1F818A"
+        app:labelVisibilityMode="labeled"
+        app:itemTextAppearanceActiveBoldEnabled="false"
+        />
+
+</RelativeLayout>

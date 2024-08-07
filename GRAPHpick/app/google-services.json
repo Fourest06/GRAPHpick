@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "50593632857",
+    "project_id": "graphpick-cd68a",
+    "storage_bucket": "graphpick-cd68a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:50593632857:android:693257c738fe657935d748",
+        "android_client_info": {
+          "package_name": "com.example.graphpick"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5ScYbjOBhU9KT2kYVCIYoMA-agpQ79UE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
